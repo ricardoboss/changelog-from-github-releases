@@ -11,6 +11,14 @@ inputs:
     description: 'Where to write the CHANGELOG.md file'
     required: true
     default: './CHANGELOG.md'
+  repository:
+    description: 'The repository to get the releases from (default: owner/repo)'
+    required: false
+    default: '${{ github.repository }}'
+  token:
+    description: 'The GitHub token to use for authentication'
+    required: true
+    default: '${{ github.token }}'
 
 runs:
   using: node20
