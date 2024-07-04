@@ -57,8 +57,8 @@ Whether to include pre-releases. Defaults to `false`.
 
 ## Outputs
 
-In addition to these outputs, the action also generates the file determined by the `file` input that contains the
-generated changelog.
+In addition to these outputs, the action also generates the file determined by
+the `file` input that contains the generated changelog.
 
 ### `changelog`
 
