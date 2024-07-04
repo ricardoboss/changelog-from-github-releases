@@ -53,7 +53,7 @@ The GitHub token to use for authentication. Defaults to `${{ github.token }}`.
 
 ### `prerelease`
 
-Whether to include pre-releases. Defaults to `false`.
+Whether to include prereleases. Defaults to `false`.
 
 ## Outputs
 
