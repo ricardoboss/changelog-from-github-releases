@@ -20,6 +20,10 @@ inputs:
     required: true
     default: '${{ github.token }}'
 
+outputs:
+  changelog:
+    description: 'The generated change log'
+
 runs:
   using: node20
   main: dist/index.js

@@ -14,13 +14,16 @@ export async function run(): Promise<void> {
     const repository: string = inputs.repository()
     const token: string = inputs.token()
 
-    core.debug(`Writing to file: ${file}`)
+    core.debug(`File: ${file}`)
     core.debug(`Repository: ${repository}`)
 
     const releases = await fetchReleases(repository, token)
     const changelog = generateChangelog(releases)
 
     fs.writeFileSync(file, changelog)
+    core.info(`Changelog successfully written to ${file}`)
+
+    core.setOutput('changelog', changelog)
   } catch (error) {
     // Fail the workflow run if an error occurs
     if (error instanceof Error) core.setFailed(error.message)

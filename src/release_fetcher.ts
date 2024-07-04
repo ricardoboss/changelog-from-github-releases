@@ -14,7 +14,7 @@ export async function fetchReleases(
 ): Promise<Release[]> {
   const octokit = github.getOctokit(token)
 
-  core.debug(`Fetching releases from repository: ${repository}`)
+  core.info(`Fetching releases from repository: ${repository}...`)
 
   const response = await octokit.rest.repos.listReleases({
     owner: repository.split('/')[0],
