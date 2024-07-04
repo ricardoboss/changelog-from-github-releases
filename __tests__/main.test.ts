@@ -11,6 +11,7 @@ import * as main from '../src/main'
 import { expect } from '@jest/globals'
 import * as release_fetcher from '../src/release_fetcher'
 import { Release } from '../src/models/release'
+import * as fs from 'node:fs'
 
 // Mock the action's main function
 const runMock = jest.spyOn(main, 'run')
@@ -33,6 +34,10 @@ describe('action', () => {
     fetchReleasesMock = jest
       .spyOn(release_fetcher, 'fetchReleases')
       .mockImplementation()
+  })
+
+  afterEach(() => {
+    fs.rmSync('CHANGELOG.test.md')
   })
 
   it('generates a changelog', async () => {
