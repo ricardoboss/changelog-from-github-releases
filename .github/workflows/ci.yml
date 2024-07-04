@@ -58,7 +58,6 @@ jobs:
         uses: ./
         with:
           file: './CHANGELOG.generated.md'
-          repository: 'ricardoboss/STEP' # just for testing
 
       - name: Print Generated CHANGELOG.md
         run: cat ./CHANGELOG.generated.md
