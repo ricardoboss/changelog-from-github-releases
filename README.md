@@ -102,7 +102,8 @@ steps:
 ```
 
 For example workflow runs, check out the
-[Actions tab](https://github.com/ricardoboss/changelog-from-github-releases/actions)! :rocket:
+[Actions tab](https://github.com/ricardoboss/changelog-from-github-releases/actions)!
+:rocket:
 
 ## Usage
 
