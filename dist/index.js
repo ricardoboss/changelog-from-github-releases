@@ -29229,7 +29229,7 @@ const core = __importStar(__nccwpck_require__(2186));
  * @returns {string} The changelog.
  */
 function generateChangelog(releases) {
-    core.debug(`Generating changelog from ${releases.length} releases`);
+    core.info(`Generating changelog from ${releases.length} releases...`);
     return releases
         .map(release => generateChangelogFromRelease(release))
         .join('\n');
@@ -29240,8 +29240,9 @@ function generateChangelog(releases) {
  * @returns {Promise<string>} Resolves with the changelog.
  */
 function generateChangelogFromRelease(release) {
+    const date = new Date(release.published_at);
     return `
-## [${release.name}](${release.html_url}) (${release.published_at})
+# [${release.name}](${release.html_url}) (${date.toDateString()})
 
 ${release.body}
 `;
@@ -29354,11 +29355,13 @@ async function run() {
         const file = inputs.file();
         const repository = inputs.repository();
         const token = inputs.token();
-        core.debug(`Writing to file: ${file}`);
+        core.debug(`File: ${file}`);
         core.debug(`Repository: ${repository}`);
         const releases = await (0, release_fetcher_1.fetchReleases)(repository, token);
         const changelog = (0, changelog_generator_1.generateChangelog)(releases);
         fs.writeFileSync(file, changelog);
+        core.info(`Changelog successfully written to ${file}`);
+        core.setOutput('changelog', changelog);
     }
     catch (error) {
         // Fail the workflow run if an error occurs
@@ -29410,7 +29413,7 @@ const github = __importStar(__nccwpck_require__(5438));
  */
 async function fetchReleases(repository, token) {
     const octokit = github.getOctokit(token);
-    core.debug(`Fetching releases from repository: ${repository}`);
+    core.info(`Fetching releases from repository: ${repository}...`);
     const response = await octokit.rest.repos.listReleases({
         owner: repository.split('/')[0],
         repo: repository.split('/')[1]
