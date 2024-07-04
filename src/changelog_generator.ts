@@ -21,7 +21,7 @@ export function generateChangelog(releases: Release[]): string {
  */
 function generateChangelogFromRelease(release: Release): string {
   return `
-## [${release.name}](${release.html_url}) (${release.published_at})
+# [${release.name}](${release.html_url}) (${release.published_at})
 
 ${release.body}
 `
