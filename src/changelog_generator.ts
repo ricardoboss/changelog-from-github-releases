@@ -7,7 +7,7 @@ import { Release } from './models/release'
  * @returns {string} The changelog.
  */
 export function generateChangelog(releases: Release[]): string {
-  core.debug(`Generating changelog from ${releases.length} releases`)
+  core.info(`Generating changelog from ${releases.length} releases...`)
 
   return releases
     .map(release => generateChangelogFromRelease(release))
@@ -20,8 +20,10 @@ export function generateChangelog(releases: Release[]): string {
  * @returns {Promise<string>} Resolves with the changelog.
  */
 function generateChangelogFromRelease(release: Release): string {
+  const date = new Date(release.published_at)
+
   return `
-# [${release.name}](${release.html_url}) (${release.published_at})
+# [${release.name}](${release.html_url}) (${date.toDateString()})
 
 ${release.body}
 `
