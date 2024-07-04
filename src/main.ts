@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import * as inputs from './inputs.ts'
+import * as inputs from './inputs'
 import { fetchReleases } from './release_fetcher'
 import { generateChangelog } from './changelog_generator'
 import * as fs from 'node:fs'
