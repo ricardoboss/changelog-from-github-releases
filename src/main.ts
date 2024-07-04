@@ -12,13 +12,15 @@ export async function run(): Promise<void> {
   try {
     const file: string = inputs.file()
     const repository: string = inputs.repository()
+    const includePreReleases: boolean = inputs.prerelease()
     const token: string = inputs.token()
 
     core.debug(`File: ${file}`)
     core.debug(`Repository: ${repository}`)
+    core.debug(`Include pre-releases: ${includePreReleases}`)
 
     const releases = await fetchReleases(repository, token)
-    const changelog = generateChangelog(releases)
+    const changelog = generateChangelog(releases, includePreReleases)
 
     fs.writeFileSync(file, changelog)
     core.info(`Changelog successfully written to ${file}`)

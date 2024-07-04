@@ -29226,11 +29226,14 @@ const core = __importStar(__nccwpck_require__(2186));
 /**
  * Generate a changelog from GitHub Releases.
  * @param releases The GitHub Releases to generate the changelog from.
+ * @param includePreReleases Whether to include pre-releases.
  * @returns {string} The changelog.
  */
-function generateChangelog(releases) {
+function generateChangelog(releases, includePreReleases) {
     core.info(`Generating changelog from ${releases.length} releases...`);
     return releases
+        .filter(release => includePreReleases || !release.prerelease)
+        .filter(release => !release.draft)
         .map(release => generateChangelogFromRelease(release))
         .join('\n');
 }
@@ -29241,8 +29244,9 @@ function generateChangelog(releases) {
  */
 function generateChangelogFromRelease(release) {
     const date = new Date(release.published_at);
+    const dateString = `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1).toString().padStart(2, '0')}-${date.getUTCDate().toString().padStart(2, '0')}`;
     return `
-# [${release.name}](${release.html_url}) (${date.toDateString()})
+# [${release.name}](${release.html_url}) (${dateString})
 
 ${release.body}
 `;
@@ -29283,6 +29287,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.file = file;
 exports.repository = repository;
 exports.token = token;
+exports.prerelease = prerelease;
 const core = __importStar(__nccwpck_require__(2186));
 /**
  * Get the file path to write the CHANGELOG.md to.
@@ -29306,6 +29311,13 @@ function repository() {
  */
 function token() {
     return core.getInput('token');
+}
+/**
+ * Get whether to include pre-releases.
+ * @returns {boolean} Whether to include pre-releases.
+ */
+function prerelease() {
+    return core.getInput('prerelease') === 'true';
 }
 
 
@@ -29354,11 +29366,13 @@ async function run() {
     try {
         const file = inputs.file();
         const repository = inputs.repository();
+        const includePreReleases = inputs.prerelease();
         const token = inputs.token();
         core.debug(`File: ${file}`);
         core.debug(`Repository: ${repository}`);
+        core.debug(`Include pre-releases: ${includePreReleases}`);
         const releases = await (0, release_fetcher_1.fetchReleases)(repository, token);
-        const changelog = (0, changelog_generator_1.generateChangelog)(releases);
+        const changelog = (0, changelog_generator_1.generateChangelog)(releases, includePreReleases);
         fs.writeFileSync(file, changelog);
         core.info(`Changelog successfully written to ${file}`);
         core.setOutput('changelog', changelog);

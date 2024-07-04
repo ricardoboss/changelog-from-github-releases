@@ -25,3 +25,11 @@ export function repository(): string {
 export function token(): string {
   return core.getInput('token')
 }
+
+/**
+ * Get whether to include pre-releases.
+ * @returns {boolean} Whether to include pre-releases.
+ */
+export function prerelease(): boolean {
+  return core.getInput('prerelease') === 'true'
+}
