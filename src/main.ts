@@ -18,7 +18,7 @@ export async function run(): Promise<void> {
     core.debug(`Repository: ${repository}`)
 
     const releases = await fetchReleases(repository, token)
-    const changelog = await generateChangelog(releases)
+    const changelog = generateChangelog(releases)
 
     fs.writeFileSync(file, changelog)
   } catch (error) {

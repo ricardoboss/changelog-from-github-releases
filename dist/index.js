@@ -29225,13 +29225,13 @@ exports.generateChangelog = generateChangelog;
 const core = __importStar(__nccwpck_require__(2186));
 /**
  * Generate a changelog from GitHub Releases.
- * @param releases The GitHub Releases to generate the CHANGELOG.md from.
- * @returns {Promise<string>} Resolves with the changelog.
+ * @param releases The GitHub Releases to generate the changelog from.
+ * @returns {string} The changelog.
  */
-async function generateChangelog(releases) {
+function generateChangelog(releases) {
     core.debug(`Generating changelog from ${releases.length} releases`);
     return releases
-        .map(async (release) => await generateChangelogFromRelease(release))
+        .map(release => generateChangelogFromRelease(release))
         .join('\n');
 }
 /**
@@ -29239,7 +29239,7 @@ async function generateChangelog(releases) {
  * @param release The GitHub Release to generate the changelog from.
  * @returns {Promise<string>} Resolves with the changelog.
  */
-async function generateChangelogFromRelease(release) {
+function generateChangelogFromRelease(release) {
     return `
 ## [${release.name}](${release.html_url}) (${release.published_at})
 
@@ -29357,7 +29357,7 @@ async function run() {
         core.debug(`Writing to file: ${file}`);
         core.debug(`Repository: ${repository}`);
         const releases = await (0, release_fetcher_1.fetchReleases)(repository, token);
-        const changelog = await (0, changelog_generator_1.generateChangelog)(releases);
+        const changelog = (0, changelog_generator_1.generateChangelog)(releases);
         fs.writeFileSync(file, changelog);
     }
     catch (error) {

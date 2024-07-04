@@ -3,14 +3,14 @@ import { Release } from './models/release'
 
 /**
  * Generate a changelog from GitHub Releases.
- * @param releases The GitHub Releases to generate the CHANGELOG.md from.
- * @returns {Promise<string>} Resolves with the changelog.
+ * @param releases The GitHub Releases to generate the changelog from.
+ * @returns {string} The changelog.
  */
-export async function generateChangelog(releases: Release[]): Promise<string> {
+export function generateChangelog(releases: Release[]): string {
   core.debug(`Generating changelog from ${releases.length} releases`)
 
   return releases
-    .map(async release => await generateChangelogFromRelease(release))
+    .map(release => generateChangelogFromRelease(release))
     .join('\n')
 }
 
@@ -19,7 +19,7 @@ export async function generateChangelog(releases: Release[]): Promise<string> {
  * @param release The GitHub Release to generate the changelog from.
  * @returns {Promise<string>} Resolves with the changelog.
  */
-async function generateChangelogFromRelease(release: Release): Promise<string> {
+function generateChangelogFromRelease(release: Release): string {
   return `
 ## [${release.name}](${release.html_url}) (${release.published_at})
 
