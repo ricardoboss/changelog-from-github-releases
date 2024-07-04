@@ -29398,13 +29398,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.fetchReleases = fetchReleases;
 const core = __importStar(__nccwpck_require__(2186));
-const github_1 = __importDefault(__nccwpck_require__(5438));
+const github = __importStar(__nccwpck_require__(5438));
 /**
  * Fetch the releases from a GitHub repository.
  * @param repository The repository to get the releases from.
@@ -29412,7 +29409,7 @@ const github_1 = __importDefault(__nccwpck_require__(5438));
  * @returns {Promise<Release[]>} Resolves with the releases from the repository.
  */
 async function fetchReleases(repository, token) {
-    const octokit = github_1.default.getOctokit(token);
+    const octokit = github.getOctokit(token);
     core.debug(`Fetching releases from repository: ${repository}`);
     const response = await octokit.rest.repos.listReleases({
         owner: repository.split('/')[0],
