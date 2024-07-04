@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 import * as inputs from './inputs.ts'
-import { fetchReleases } from './release_fetcher.ts'
-import { generateChangelog } from './changelog_generator.ts'
+import { fetchReleases } from './release_fetcher'
+import { generateChangelog } from './changelog_generator'
 import * as fs from 'node:fs'
 
 /**

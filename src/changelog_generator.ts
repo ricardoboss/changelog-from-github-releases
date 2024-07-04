@@ -1,5 +1,5 @@
 import * as core from '@actions/core'
-import { Release } from './models/release.ts'
+import { Release } from './models/release'
 
 /**
  * Generate a changelog from GitHub Releases.
