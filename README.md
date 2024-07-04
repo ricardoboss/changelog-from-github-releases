@@ -85,3 +85,9 @@ steps:
 ## License
 
 The code in this project is licensed under the [MIT License](./LICENSE).
+
+## Alternatives
+
+Consider these alternatives to this action:
+
+- https://github.com/rhysd/changelog-from-release
