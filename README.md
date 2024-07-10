@@ -90,4 +90,4 @@ The code in this project is licensed under the [MIT License](./LICENSE).
 
 Consider these alternatives to this action:
 
-- https://github.com/rhysd/changelog-from-release
+- [rhysd/changelog-from-release](https://github.com/rhysd/changelog-from-release)
